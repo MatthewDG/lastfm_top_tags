@@ -9,7 +9,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.transparent,
     },
     backgroundImage: {
       position: 'absolute',
@@ -19,20 +19,23 @@ const ApplicationStyles = {
       right: 0
     },
     container: {
-      flex: 1,
       paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.transparent
     },
     section: {
       margin: Metrics.section,
-      padding: Metrics.baseMargin
+      marginVertical: 0,
+      padding: Metrics.baseMargin,
+      backgroundColor: Colors.transparent,
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     sectionText: {
+      flex: 0,
       ...Fonts.style.normal,
       paddingVertical: Metrics.doubleBaseMargin,
-      color: Colors.snow,
+      color: Colors.text,
       marginVertical: Metrics.smallMargin,
-      textAlign: 'center'
     },
     subtitle: {
       color: Colors.snow,

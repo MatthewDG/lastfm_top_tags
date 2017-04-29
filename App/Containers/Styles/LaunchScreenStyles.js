@@ -4,7 +4,8 @@ import { Metrics, ApplicationStyles } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    paddingBottom: Metrics.baseMargin
+    paddingTop: 100,
+    paddingBottom: Metrics.baseMargin,
   },
   logo: {
     marginTop: Metrics.doubleSection,
@@ -14,5 +15,16 @@ export default StyleSheet.create({
   },
   centered: {
     alignItems: 'center'
-  }
+  },
+  songInput: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  submitOpacity: {
+    width: 150,
+    backgroundColor: "#eee",
+  },
 })
