@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native'
 import { Metrics, ApplicationStyles } from '../../Themes/'
+import Colors from '../../Themes/Colors'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    paddingTop: 100,
-    paddingBottom: Metrics.baseMargin,
+    paddingTop: 60,
+    paddingBottom: Metrics.baseMargin
   },
   logo: {
     marginTop: Metrics.doubleSection,
@@ -21,10 +22,21 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 5
   },
   submitOpacity: {
     width: 150,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee'
   },
+  tagList: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 20
+  },
+  tagRow: {
+    textAlign: 'center',
+    color: 'white',
+    backgroundColor: Colors.transparent,
+    marginVertical: 5
+  }
 })
