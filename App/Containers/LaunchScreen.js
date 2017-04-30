@@ -11,7 +11,7 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 export default class LaunchScreen extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { artist: '', song: '', dataSource: ds }
+    this.state = { artist: '', song: '', dataSource: ds, errorMessage: '' }
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -26,11 +26,29 @@ export default class LaunchScreen extends React.Component {
     return fetch(fetchUrl)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ dataSource: ds.cloneWithRows(responseJson.toptags.tag.slice(0, 10)) })
+        if (typeof responseJson.error !== 'undefined') {
+          this.setState({ errorMessage: responseJson.message, dataSource: ds })
+        } else {
+          this.setState({ dataSource: ds.cloneWithRows(responseJson.toptags.tag.slice(0, 10)), errorMessage: '' })
+        }
       })
       .catch((error) => {
-        console.error(error)
+        console.log(error)
       })
+  }
+
+  renderErrors () {
+    const { errorMessage } = this.state
+
+    if (errorMessage.length === 0) {
+      return null
+    } else {
+      return (
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>{errorMessage}</Text>
+        </View>
+      )
+    }
   }
 
   render () {
@@ -76,13 +94,15 @@ export default class LaunchScreen extends React.Component {
             </TouchableOpacity>
           </View>
 
+          {this.renderErrors()}
+
           <View style={styles.tagList}>
             <ListView
+              enableEmptySections
               dataSource={this.state.dataSource}
               renderRow={(rowData) => <Text style={styles.tagRow}>{rowData.name}</Text>}
               />
           </View>
-
 
         </ScrollView>
       </View>
