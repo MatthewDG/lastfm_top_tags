@@ -3,6 +3,7 @@ package com.last_fm_top_tags;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.RNSvgPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSvgPackage(),
             new ReactNativeI18n(),
             new VectorIconsPackage(),
             new RNDeviceInfo(),
