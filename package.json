@@ -38,6 +38,7 @@
     "react-native-i18n": "^1.0.0",
     "react-native-pathjs-charts": "0.0.27",
     "react-native-router-flux": "3.38.0",
+    "react-native-svg": "4.5.0",
     "react-native-vector-icons": "^4.0.1",
     "react-redux": "5.0.4",
     "redux": "3.6.0",

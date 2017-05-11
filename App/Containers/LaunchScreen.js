@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView, ListView, Text, Image, View, TextInput, Button, TouchableOpacity } from 'react-native'
 import { Images } from '../Themes'
 import CustomNavBar from '../Components/CustomNavBar'
+import BarChart from '../Components/BarChart'
 import Config from 'react-native-config'
 
 // Styles
@@ -11,14 +12,27 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 export default class LaunchScreen extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { artist: '', song: '', dataSource: ds, errorMessage: '' }
+    this.state = { artist: '', song: '', dataSource: ds, errorMessage: '', barData: [ ] }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  parseBarObjects (arr){
+    let result = [];
+
+    arr.forEach((tag) => {
+      let tagObj = {};
+      tagObj["v"] = tag.count / 10;
+      tagObj["name"] = tag.name;
+      result.push(tagObj)
+    });
+
+    return result;
   }
 
   handleSubmit (e) {
     const { artist, song } = this.state
-    console.log(artist)
+
     let fetchUrl = `https://ws.audioscrobbler.com/2.0/?method=track.getTopTags&api_key=${Config.LAST_FM_API_KEY}&format=json&artist=${artist}&track=${song}`
     if (song.length === 0) {
       fetchUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=${artist}&api_key=${Config.LAST_FM_API_KEY}&format=json`
@@ -30,6 +44,8 @@ export default class LaunchScreen extends React.Component {
           this.setState({ errorMessage: responseJson.message, dataSource: ds })
         } else {
           this.setState({ dataSource: ds.cloneWithRows(responseJson.toptags.tag.slice(0, 10)), errorMessage: '' })
+          let barObjects = this.parseBarObjects(responseJson.toptags.tag.slice(0,10));
+          this.setState({ barData: barObjects });
         }
       })
       .catch((error) => {
@@ -103,6 +119,8 @@ export default class LaunchScreen extends React.Component {
               renderRow={(rowData) => <Text style={styles.tagRow}>{rowData.name}</Text>}
               />
           </View>
+
+          <BarChart data = {this.state.barData} />
 
         </ScrollView>
       </View>
